@@ -15,6 +15,8 @@ end
 data.validdataset(1)
 
 core = torch.load('core.net')
+g_disable_dropout(core)
+
 -- Initialize start state (empty)
 current_state = {}
 for i = 1, 4 do current_state[i] = torch.zeros(20, 200):cuda() end
