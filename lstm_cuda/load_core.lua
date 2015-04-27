@@ -21,7 +21,6 @@ for i = 1, 4 do current_state[i] = torch.zeros(20, 200):cuda() end
 
 io.write("OK GO\n")
 while true do
-  io.write("IN : ")
   local ok, line = pcall(readline)
   if not ok then
     if line.code == "EOF" then
