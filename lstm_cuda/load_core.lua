@@ -31,6 +31,9 @@ while true do
     end
   else
     entry = data.vocab_map[line]
+    if entry == nil then
+        entry = data.vocab_map["_"]
+    end
     x = torch.Tensor(20):cuda():fill(entry)
     err, new_state, pred = unpack(core:forward({x, x, current_state})) --don't care about label, just put x again
     g_replace_table(current_state, new_state)
