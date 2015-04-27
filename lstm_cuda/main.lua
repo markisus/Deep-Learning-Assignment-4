@@ -42,11 +42,11 @@ local params = {batch_size=20,
 
 -- Trains 1h and gives test 115 perplexity.
 local params = {batch_size=20,
-                seq_length=5,
+                seq_length=10,
                 layers=2,
                 decay=2,
                 rnn_size=200,
-                dropout=0,
+                dropout=0.2,
                 init_weight=0.1,
                 lr=1,
                 vocab_size=50,
@@ -101,10 +101,8 @@ function create_network()
   local dropped          = nn.Dropout(params.dropout)(i[params.layers])
   local pred             = nn.LogSoftMax()(h2y(dropped))
   local err              = nn.ClassNLLCriterion()({pred, y})
-  -- multiplying error by 5.6 will scale future perplexities as required by the assignment
-  local perp 		 = nn.MulConstant(5.6)({err})
   local module           = nn.gModule({x, y, prev_s},
-                                      {perp, nn.Identity()(next_s), pred})
+                                      {err, nn.Identity()(next_s), pred})
   module:getParameters():uniform(-params.init_weight, params.init_weight)
   return transfer_data(module)
 end
@@ -195,7 +193,7 @@ function run_valid()
   for i = 1, len do
     perp = perp + fp(state_valid)
   end
-  print("Validation set perplexity : " .. g_f3(torch.exp(perp / len)))
+  print("Validation set perplexity : " .. g_f3(torch.exp(5.6 * perp / len)))
   g_enable_dropout(model.rnns)
 end
 
@@ -214,7 +212,7 @@ function run_test()
     perp = perp + perp_tmp[1]
     g_replace_table(model.s[0], model.s[1])
   end
-  print("Test set perplexity : " .. g_f3(torch.exp(perp / (len - 1))))
+  print("Test set perplexity : " .. g_f3(torch.exp(5.6 * perp / (len - 1))))
   g_enable_dropout(model.rnns)
 end
 
@@ -253,7 +251,7 @@ while epoch < params.max_max_epoch do
    wps = torch.floor(total_cases / torch.toc(start_time))
    since_beginning = g_d(torch.toc(beginning_time) / 60)
    print('epoch = ' .. g_f3(epoch) ..
-         ', train perp. = ' .. g_f3(torch.exp(perps:mean())) ..
+         ', train perp. = ' .. g_f3(torch.exp(5.6 * perps:mean())) ..
          ', wps = ' .. wps ..
          ', dw:norm() = ' .. g_f3(model.norm_dw) ..
          ', lr = ' ..  g_f3(params.lr) ..

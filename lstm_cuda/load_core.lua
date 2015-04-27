@@ -22,6 +22,7 @@ current_state = {}
 for i = 1, 4 do current_state[i] = torch.zeros(20, 200):cuda() end
 
 io.write("OK GO\n")
+io.flush()
 while true do
   local ok, line = pcall(readline)
   if not ok then
@@ -43,6 +44,7 @@ while true do
     	io.write(pred[1][i].." ")    
     end
     io.write('\n')
+    io.flush()
   end
 end
 
