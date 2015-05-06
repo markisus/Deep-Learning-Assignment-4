@@ -1,0 +1,31 @@
+# General comments and issues with running your submission
+Permission issues - no points deducted
+
+# Your test set score
+442000  Perplexity: 1509526042623.531006        avgnll: 5.007646        fails: 0
+
+# Your answer to the questions (no comment means correct)
++ Q1 Looks right, but you don't do manual verification.
++ Q2
++ Q3
++ Q4
++ Q5
++ Q6
++ Q7
+
+# Comments on your code
+I like how you just load the core for model validation, shows your understanding.
+No need to keep working with tensors of size 20
+Dont see right away where's the bug leading to your terrible perplexity.
+
+# Comments on your write-up
+Unrolling for just 10 timesteps seems like a bad idea, you need to be able to propagate gradient for longer.
+2 epochs is just too short training.
+
+# Grades
++ Test set performance (out of 25): 10
++ Questions            (out of 25): 25
++ Code                 (out of 25): 25
++ Write-up and effort  (out of 25): 20
++ Lateness deduction              :
++ TOTAL (out of 100):             : 80

@@ -1,0 +1,12 @@
+Generated char level test data? (would be a grave error)
+
+cd ml4133; git log --pretty=format:"%an, %ad : %s" -4
+Mark, Mon Apr 27 15:22:16 2015 -0400 : Create README.md
+Mark Liu, Mon Apr 27 15:18:49 2015 -0400 : pdf
+Mark Liu, Mon Apr 27 15:05:17 2015 -0400 : doing some experiments, flushing data
+Mark Liu, Mon Apr 27 12:40:16 2015 -0400 : adding word-level code
+
+cd ml4133; git log --pretty=format:"%ad" -1
+Mon Apr 27 15:22:16 2015 -0400
+
+Last commit is in time
